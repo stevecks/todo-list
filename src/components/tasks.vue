@@ -7,36 +7,40 @@ import TaskTable from './taskTable.vue'
 <template>
   <Container class="container">
     <div class="tasks-section">
-      <CurrentTasks class="card-section" />
-      <AddTask class="card-section" />
-      <TaskTable class="card-section card-section--big" />
+      <CurrentTasks class="tasks-section__card" />
+      <AddTask class="tasks-section__card" />
+      <TaskTable class="tasks-section__card tasks-section__card--big" />
     </div>
   </Container>
 </template>
 <style lang="scss">
+@import '../scss/mixins';
 .container {
   background-color: #eaeaea;
 }
 
 .tasks-section {
+  --columns: 2;
+
   width: 100%;
-  margin: 0 0 64px;
+  margin-bottom: 64px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(var(--columns), 1fr);
   column-gap: 24px;
   row-gap: 60px;
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(1, 1fr);
+
+  @include tablet {
+    --columns: 1;
   }
-}
 
-.card-section {
-  grid-column: span 1;
+  &__card {
+    grid-column: span 1;
 
-  &--big {
-    grid-column: span 2;
-    @media (max-width: 992px) {
-      grid-column: span 1;
+    &--big {
+      grid-column: span 2;
+      @include tablet {
+        grid-column: span 1;
+      }
     }
   }
 }

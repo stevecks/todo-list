@@ -94,14 +94,12 @@
     border-bottom: 2px solid #eaeaea;
   }
   .statuses {
-    // display: flex;
-    // flex-direction: row;
-    // gap: 8px;
-    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
     &__button {
-      display: inline-block;
-      margin-right: 8px;
-      margin-bottom: 8px;
       height: 30px;
       padding-inline: 16px;
       border-radius: 15px;
@@ -112,6 +110,7 @@
         font-size: 12px;
         font-family: 'PT Sans Caption', sans-serif;
         color: #333333;
+        white-space: nowrap;
       }
     }
   }
@@ -139,6 +138,7 @@
         font-family: 'PT Sans Caption', sans-serif;
         font-weight: bold;
         color: #ffffff;
+        white-space: nowrap;
       }
     }
     &__delete {
@@ -156,6 +156,7 @@
         font-family: 'PT Sans Caption', sans-serif;
         font-weight: bold;
         color: #ff6600;
+        white-space: nowrap;
       }
     }
   }

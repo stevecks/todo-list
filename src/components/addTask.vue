@@ -3,13 +3,13 @@
 <template>
   <div class="card">
     <h2 class="card__name">Добавить задачу</h2>
-    <div class="card__add">
-      <button class="card__add__button">
+    <div class="adding-section">
+      <button class="adding-section__button">
         <span class="material-symbols-outlined">add</span>
         <p>Добавить задачу</p>
       </button>
-      <div class="input">
-        <button class="clear">
+      <div class="adding-section__input">
+        <button class="button-clear">
           <span class="material-symbols-outlined">close</span>
         </button>
         <input type="text" placeholder="Текст" />
@@ -19,12 +19,14 @@
 </template>
 
 <style scoped lang="scss">
+@import '../scss/mixins';
+
 .card {
   padding: 40px 24px;
   border-radius: 48px;
   background-color: #fff;
 
-  @media (max-width: 640px) {
+  @include phone {
     padding: 24px;
   }
 
@@ -35,18 +37,19 @@
     font-weight: bold;
     color: #333333;
     margin-bottom: 24px;
-    @media (max-width: 992px) {
+    @include tablet {
       line-height: 26px;
       font-size: 18px;
     }
   }
 
-  &__add {
+  .adding-section {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 15px;
-    @media (max-width: 640px) {
+
+    @include phone {
       flex-direction: column-reverse;
       gap: 16px;
       align-items: stretch;
@@ -62,7 +65,7 @@
       border: none;
       background-color: #ff6600;
 
-      @media (max-width: 640px) {
+      @include phone {
         width: 100%;
       }
 
@@ -70,7 +73,7 @@
         height: 24px;
         width: 24px;
         color: #ffffff;
-        @media (max-width: 640px) {
+        @include phone {
           display: none;
         }
       }
@@ -82,13 +85,13 @@
         font-family: 'PT Sans Caption', sans-serif;
         font-weight: bold;
         color: #ffffff;
-        @media (max-width: 640px) {
+        @include phone {
           display: inline;
         }
       }
     }
 
-    .input {
+    &__input {
       position: relative;
       flex: auto;
 
@@ -106,7 +109,7 @@
         color: #333333;
       }
 
-      .clear {
+      .button-clear {
         position: absolute;
         top: 4px;
         right: 4px;

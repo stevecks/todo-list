@@ -52,6 +52,9 @@ import Container from './container.vue'
 <style scoped lang="scss">
 .container {
   background-color: #ffffff;
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .board-section {

@@ -22,9 +22,13 @@
 
 <style scoped lang="scss">
 .card {
-  padding: 40px 20px;
+  padding: 40px 24px;
   border-radius: 48px;
   background-color: #fff;
+
+  @media (max-width: 640px) {
+    padding: 24px;
+  }
 
   &__name {
     line-height: 32px;
@@ -33,6 +37,11 @@
     font-weight: bold;
     color: #333333;
     margin-bottom: 24px;
+
+    @media (max-width: 992px) {
+      line-height: 26px;
+      font-size: 18px;
+    }
   }
 
   &__info {

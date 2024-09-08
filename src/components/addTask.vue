@@ -20,9 +20,13 @@
 
 <style scoped lang="scss">
 .card {
-  padding: 40px 20px;
+  padding: 40px 24px;
   border-radius: 48px;
   background-color: #fff;
+
+  @media (max-width: 640px) {
+    padding: 24px;
+  }
 
   &__name {
     line-height: 32px;
@@ -31,6 +35,10 @@
     font-weight: bold;
     color: #333333;
     margin-bottom: 24px;
+    @media (max-width: 992px) {
+      line-height: 26px;
+      font-size: 18px;
+    }
   }
 
   &__add {
@@ -71,7 +79,6 @@
         display: none;
         line-height: 24px;
         font-size: 16px;
-        font-family: '', sans-serif;
         font-family: 'PT Sans Caption', sans-serif;
         font-weight: bold;
         color: #ffffff;
@@ -93,6 +100,11 @@
         background-color: none;
         padding: 0 44px 0 16px;
       }
+      input::placeholder {
+        line-height: 24px;
+        font-size: 12px;
+        color: #333333;
+      }
 
       .clear {
         position: absolute;
@@ -105,7 +117,7 @@
         align-items: center;
         border-radius: 20px;
         border: none;
-        background-color: #9a3c3c00;
+        background-color: #ffffff00;
 
         span {
           font-size: 20px;

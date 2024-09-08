@@ -2,13 +2,14 @@
 import Container from './container.vue'
 import CurrentTasks from './currentTasks.vue'
 import AddTask from './addTask.vue'
+import TaskTable from './taskTable.vue'
 </script>
 <template>
   <Container class="container">
     <div class="tasks-section">
       <CurrentTasks class="card" />
       <AddTask class="card" />
-      <div class="card card--big"></div>
+      <TaskTable class="card card--big" />
     </div>
   </Container>
 </template>

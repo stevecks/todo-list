@@ -7,9 +7,9 @@ import TaskTable from './taskTable.vue'
 <template>
   <Container class="container">
     <div class="tasks-section">
-      <CurrentTasks class="card" />
-      <AddTask class="card" />
-      <TaskTable class="card card--big" />
+      <CurrentTasks class="card-section" />
+      <AddTask class="card-section" />
+      <TaskTable class="card-section card-section--big" />
     </div>
   </Container>
 </template>
@@ -30,7 +30,7 @@ import TaskTable from './taskTable.vue'
   }
 }
 
-.card {
+.card-section {
   grid-column: span 1;
 
   &--big {

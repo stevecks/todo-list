@@ -6,15 +6,15 @@
     <div class="card__info">
       <div class="card__info__item">
         <span class="material-symbols-outlined"> info </span>
-        <p class="text">Открыто - 2</p>
+        <p class="text">Открыто - 21</p>
       </div>
       <div class="card__info__item">
         <span class="material-symbols-outlined"> info </span>
-        <p class="text">В работе - 2</p>
+        <p class="text">В работе - 21</p>
       </div>
       <div class="card__info__item">
         <span class="material-symbols-outlined"> info </span>
-        <p class="text">Закрыто - 1</p>
+        <p class="text">Закрыто - 11</p>
       </div>
     </div>
   </div>
@@ -62,9 +62,10 @@
       height: 48px;
       border-radius: 24px;
       border: 1px solid #eaeaea;
-      padding: 12px 24px; //24px
+      padding: 12px 4%; //24px
       @media (max-width: 1221px) {
-        padding: 12px 2%;
+        padding: 12px 1%;
+        gap: 2px;
       }
       @media (max-width: 992px) {
         padding: 12px 4%;
@@ -77,6 +78,7 @@
       .text {
         line-height: 24px; //24px
         font-size: 14px; //16px
+        white-space: nowrap;
         font-family: 'PT Sans Caption', sans-serif;
         font-weight: bold;
         color: #333333;

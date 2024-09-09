@@ -33,16 +33,12 @@
   }
 
   &__name {
-    line-height: 32px;
-    font-size: 24px;
-    font-family: 'PT Sans Caption', sans-serif;
-    font-weight: bold;
+    @include label-large();
     color: #333333;
     margin-bottom: 24px;
 
     @include tablet {
-      line-height: 26px;
-      font-size: 18px;
+      @include label-medium();
     }
   }
 
@@ -90,11 +86,8 @@
         color: #4db849;
       }
       p {
-        line-height: 24px;
-        font-size: 14px;
+        @include label-button();
         white-space: nowrap;
-        font-family: 'PT Sans Caption', sans-serif;
-        font-weight: bold;
         color: #333333;
       }
     }

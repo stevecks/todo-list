@@ -7,7 +7,7 @@ import Popup from './components/popup.vue'
 </script>
 
 <template>
-  <!-- <Popup></Popup> -->
+  <Popup></Popup>
   <Header></Header>
   <Tasks></Tasks>
   <TaskBoard></TaskBoard>

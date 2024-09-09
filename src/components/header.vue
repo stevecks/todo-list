@@ -28,20 +28,15 @@ header {
   }
 
   h1 {
-    line-height: 40px;
-    font-size: 32px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
+    @include display-large();
     color: #333333;
 
     @include tablet {
-      line-height: 32px;
-      font-size: 24px;
+      @include display-medium();
     }
 
     @include phone {
-      line-height: 28px;
-      font-size: 20px;
+      @include display-small();
     }
   }
 }

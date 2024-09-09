@@ -4,12 +4,12 @@
     <div class="popup">
       <div class="popup__label">
         <h2>Изменение задачи</h2>
-        <button class="close">
+        <button class="popup__button-close">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
-      <input placeholder="Текст задачи, который можно изменить" />
-      <div class="divider"></div>
+      <input class="popup__input" placeholder="Текст задачи, который можно изменить" />
+      <div class="popup__divider"></div>
       <div class="statuses">
         <button class="statuses__button"><p>Отложить</p></button>
         <button class="statuses__button"><p>В работу</p></button>
@@ -27,6 +27,8 @@
   </div>
 </template>
 <style scoped lang="scss">
+@import '../scss/mixins';
+
 .container {
   position: fixed;
   display: flex;
@@ -53,43 +55,41 @@
     align-items: center;
     margin-bottom: 24px;
     h2 {
-      line-height: 26px;
-      font-size: 18px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: bold;
+      @include label-large();
       color: #333333;
-    }
-    button {
-      height: 28px;
-      width: 28px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 14px;
-      border: none;
-      background-color: #ffffff00;
-      span {
-        height: 24px;
-        width: 24px;
-        color: #b6b6b6;
+      @include tablet() {
+        @include label-medium();
       }
     }
   }
-  input {
+  &__button-close {
+    height: 28px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    border: none;
+    background-color: #ffffff00;
+    span {
+      height: 24px;
+      width: 24px;
+      color: #b6b6b6;
+    }
+  }
+  &__input {
     resize: none;
     height: 52px;
     width: 100%;
     border-radius: 24px;
     border: 1px solid #eaeaea;
     padding: 16px;
-  }
-  input:placeholder {
-    line-height: 20px;
-    font-size: 12px;
-    font-family: 'PT Sans Caption', sans-serif;
+    &:placeholder {
+      @include title-small();
+    }
   }
 
-  .divider {
+  &__divider {
     margin-block: 16px;
     border-bottom: 2px solid #eaeaea;
   }
@@ -106,9 +106,7 @@
       border: none;
       background-color: #f4f4f4;
       p {
-        line-height: 20px;
-        font-size: 12px;
-        font-family: 'PT Sans Caption', sans-serif;
+        @include title-small();
         color: #333333;
         white-space: nowrap;
       }
@@ -119,7 +117,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    @media (max-width: 640px) {
+    @include phone {
       flex-direction: column;
       gap: 12px;
     }
@@ -133,10 +131,7 @@
       border: none;
       background-color: #ff6600;
       p {
-        line-height: 24px;
-        font-size: 16px;
-        font-family: 'PT Sans Caption', sans-serif;
-        font-weight: bold;
+        @include label-button();
         color: #ffffff;
         white-space: nowrap;
       }
@@ -151,10 +146,7 @@
       background-color: #ffffff;
       border: 2px solid #ff6600;
       p {
-        line-height: 24px;
-        font-size: 16px;
-        font-family: 'PT Sans Caption', sans-serif;
-        font-weight: bold;
+        @include label-button();
         color: #ff6600;
         white-space: nowrap;
       }

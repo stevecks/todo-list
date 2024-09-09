@@ -31,15 +31,12 @@
   }
 
   &__name {
-    line-height: 32px;
-    font-size: 24px;
-    font-family: 'PT Sans Caption', sans-serif;
-    font-weight: bold;
+    @include label-large();
     color: #333333;
     margin-bottom: 24px;
+
     @include tablet {
-      line-height: 26px;
-      font-size: 18px;
+      @include label-medium();
     }
   }
 
@@ -80,10 +77,7 @@
 
       p {
         display: none;
-        line-height: 24px;
-        font-size: 16px;
-        font-family: 'PT Sans Caption', sans-serif;
-        font-weight: bold;
+        @include label-button();
         color: #ffffff;
         @include phone {
           display: inline;
@@ -100,12 +94,11 @@
         width: 100%;
         border: 1px solid #eaeaea;
         border-radius: 24px;
-        background-color: none;
+        background-color: #ffffff00;
         padding: 0 44px 0 16px;
       }
       input::placeholder {
-        line-height: 24px;
-        font-size: 12px;
+        @include title-medium();
         color: #333333;
       }
 

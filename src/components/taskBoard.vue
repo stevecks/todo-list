@@ -7,7 +7,7 @@ import Container from './container.vue'
       <p class="label">Доска задач</p>
       <div class="board">
         <div class="board__item">
-          <div class="board__label">
+          <div class="board__status">
             <p>Открыто</p>
           </div>
           <div class="card-task">
@@ -20,7 +20,7 @@ import Container from './container.vue'
           </div>
         </div>
         <div class="board__item">
-          <div class="board__label">
+          <div class="board__status">
             <p>Открыто</p>
           </div>
           <div class="card-task">
@@ -33,7 +33,7 @@ import Container from './container.vue'
           </div>
         </div>
         <div class="board__item">
-          <div class="board__label">
+          <div class="board__status">
             <p>Открыто</p>
           </div>
           <div class="card-task">
@@ -50,9 +50,11 @@ import Container from './container.vue'
   </Container>
 </template>
 <style scoped lang="scss">
+@import '../scss/mixins';
+
 .container {
   background-color: #ffffff;
-  @media (max-width: 992px) {
+  @include tablet {
     display: none;
   }
 }
@@ -60,10 +62,7 @@ import Container from './container.vue'
 .board-section {
   margin-block: 60px;
   .label {
-    line-height: 40px;
-    font-size: 28px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
+    @include display-large();
     color: #333333;
     margin-bottom: 48px;
   }
@@ -80,7 +79,7 @@ import Container from './container.vue'
     display: flex;
     flex-direction: column;
     gap: 24px;
-    .board__label {
+    .board__status {
       height: 48px;
       width: min-content;
       border-radius: 24px;
@@ -114,9 +113,7 @@ import Container from './container.vue'
       background-color: #fff;
       border: 2px solid #eaeaea;
       p {
-        font-size: 16;
-        font-weight: bold;
-        font-family: 'PT Sans Caption', sans-serif;
+        @include label-small();
         color: #333333;
       }
     }

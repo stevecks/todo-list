@@ -60,7 +60,6 @@
   padding: 40px;
   border-radius: 48px;
   background-color: #fff;
-  font-family: 'PT Sans Caption', sans-serif;
   color: #333333;
 
   @include phone {
@@ -72,16 +71,12 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 102px;
-    line-height: 26px;
-    font-size: 18px;
-    font-family: 'PT Sans Caption', sans-serif;
-    font-weight: bold;
+    @include label-medium();
     padding-bottom: 12px;
 
     @include phone {
       grid-template-columns: 1fr;
-      line-height: 28px;
-      font-size: 20px;
+      @include display-small();
       padding-bottom: 32px;
     }
 
@@ -124,11 +119,10 @@
     }
 
     &__name p {
-      line-height: 24px;
-      font-size: 16px;
+      @include title-large();
 
       @include phone {
-        font-weight: bold;
+        @include label-small();
       }
     }
 
@@ -153,13 +147,10 @@
           border: 2px solid #ff6600;
         }
         p {
-          line-height: 20px;
-          font-size: 12px;
+          @include title-small();
 
           @include phone {
-            line-height: 24px;
-            font-size: 16px;
-            font-weight: bold;
+            @include label-button();
             color: #ff6600;
           }
         }
@@ -186,9 +177,7 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
-    line-height: 24px;
-    font-size: 16px;
-    font-weight: bold;
+    @include label-button();
     color: #ff6600;
   }
 }

@@ -13,10 +13,10 @@ import TaskTable from './taskTable.vue'
     </div>
   </Container>
 </template>
-<style lang="scss">
+<style scoped lang="scss">
 @import '../scss/mixins';
 .container {
-  background-color: #eaeaea;
+  background-color: var(--color-surface-container);
 }
 
 .tasks-section {

@@ -19,14 +19,13 @@
     </div>
   </div>
 </template>
-
 <style scoped lang="scss">
 @import '../scss/mixins';
 
 .card {
   padding: 40px 24px;
   border-radius: 48px;
-  background-color: #fff;
+  background-color: var(--color-surface-container-low);
 
   @include phone {
     padding: 24px;
@@ -34,7 +33,7 @@
 
   &__name {
     @include label-large();
-    color: #333333;
+    color: var(--color-on-surface);
     margin-bottom: 24px;
 
     @include tablet {
@@ -60,7 +59,7 @@
       gap: 4px;
       height: 48px;
       border-radius: 24px;
-      border: 1px solid #eaeaea;
+      border: 1px solid var(--color-outline);
       padding: 12px 4%;
 
       @include laptop {
@@ -77,18 +76,18 @@
       }
 
       .blue {
-        color: #26a1de;
+        color: var(--color-blue);
       }
       .orange {
-        color: #ff6600;
+        color: var(--color-orange);
       }
       .green {
-        color: #4db849;
+        color: var(--color-green);
       }
       p {
         @include label-button();
         white-space: nowrap;
-        color: #333333;
+        color: var(--color-on-secondary-container);
       }
     }
   }

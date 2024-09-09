@@ -12,7 +12,7 @@ import Container from './container.vue'
 @import '../scss/mixins';
 
 .container {
-  background-color: #eaeaea;
+  background-color: var(--color-surface-container);
 }
 
 header {
@@ -29,7 +29,7 @@ header {
 
   h1 {
     @include display-large();
-    color: #333333;
+    color: var(--color-on-surface);
 
     @include tablet {
       @include display-medium();

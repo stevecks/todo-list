@@ -24,7 +24,7 @@
 .card {
   padding: 40px 24px;
   border-radius: 48px;
-  background-color: #fff;
+  background-color: var(--color-surface-container-low);
 
   @include phone {
     padding: 24px;
@@ -32,7 +32,7 @@
 
   &__name {
     @include label-large();
-    color: #333333;
+    color: var(--color-on-surface);
     margin-bottom: 24px;
 
     @include tablet {
@@ -60,7 +60,7 @@
       align-items: center;
       border-radius: 22px;
       border: none;
-      background-color: #ff6600;
+      background-color: var(--color-primary);
 
       @include phone {
         width: 100%;
@@ -69,7 +69,7 @@
       span {
         height: 24px;
         width: 24px;
-        color: #ffffff;
+        color: var(--color-on-primary);
         @include phone {
           display: none;
         }
@@ -78,7 +78,7 @@
       p {
         display: none;
         @include label-button();
-        color: #ffffff;
+        color: var(--color-on-primary);
         @include phone {
           display: inline;
         }
@@ -92,14 +92,14 @@
       input {
         height: 48px;
         width: 100%;
-        border: 1px solid #eaeaea;
+        border: 1px solid var(--color-outline);
         border-radius: 24px;
-        background-color: #ffffff00;
+        background-color: hsla(0 0% 100% / 0);
         padding: 0 44px 0 16px;
       }
       input::placeholder {
         @include title-medium();
-        color: #333333;
+        color: var(--color-on-surface);
       }
 
       .button-clear {
@@ -113,14 +113,14 @@
         align-items: center;
         border-radius: 20px;
         border: none;
-        background-color: #ffffff00;
+        background-color: hsla(0 0% 100% / 0);
 
         span {
           font-size: 20px;
           line-height: 20px;
           height: 20px;
           width: 20px;
-          color: #ff6600;
+          color: var(--color-primary);
         }
       }
     }

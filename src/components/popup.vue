@@ -38,16 +38,16 @@
   left: 0;
   height: 100dvh;
   width: 100%;
-  background-color: #00000088;
+  background-color: hsla(0 0% 0% / 0.5);
   z-index: 10;
 }
 
 .popup {
   margin: 16px;
-  width: 375px;
+  width: 400px;
   padding: 24px;
   border-radius: 16px;
-  background-color: #ffffff;
+  background-color: var(--color-surface-container-low);
   &__label {
     display: flex;
     flex-direction: row;
@@ -56,7 +56,7 @@
     margin-bottom: 24px;
     h2 {
       @include label-large();
-      color: #333333;
+      color: var(--color-on-surface);
       @include tablet() {
         @include label-medium();
       }
@@ -70,11 +70,11 @@
     align-items: center;
     border-radius: 14px;
     border: none;
-    background-color: #ffffff00;
+    background-color: hsla(0 0% 100% / 0);
     span {
       height: 24px;
       width: 24px;
-      color: #b6b6b6;
+      color: var(--color-surface-container-high);
     }
   }
   &__input {
@@ -82,7 +82,7 @@
     height: 52px;
     width: 100%;
     border-radius: 24px;
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--color-outline);
     padding: 16px;
     &:placeholder {
       @include title-small();
@@ -91,7 +91,7 @@
 
   &__divider {
     margin-block: 16px;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 2px solid var(--color-outline);
   }
   .statuses {
     display: flex;
@@ -104,10 +104,10 @@
       padding-inline: 16px;
       border-radius: 15px;
       border: none;
-      background-color: #f4f4f4;
+      background-color: var(--color-secondary-container);
       p {
         @include title-small();
-        color: #333333;
+        color: var(--color-on-secondary-container);
         white-space: nowrap;
       }
     }
@@ -129,10 +129,10 @@
       align-items: center;
       border-radius: 20px;
       border: none;
-      background-color: #ff6600;
+      background-color: var(--color-primary);
       p {
         @include label-button();
-        color: #ffffff;
+        color: var(--color-on-primary);
         white-space: nowrap;
       }
     }
@@ -143,11 +143,11 @@
       justify-content: center;
       align-items: center;
       border-radius: 20px;
-      background-color: #ffffff;
-      border: 2px solid #ff6600;
+      background-color: var(--color-on-primary);
+      border: 2px solid var(--color-primary);
       p {
         @include label-button();
-        color: #ff6600;
+        color: var(--color-primary);
         white-space: nowrap;
       }
     }

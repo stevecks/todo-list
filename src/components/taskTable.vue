@@ -59,11 +59,11 @@
 .table {
   padding: 40px;
   border-radius: 48px;
-  background-color: #fff;
-  color: #333333;
+  background-color: var(--color-surface-container-low);
+  color: var(--color-on-surface);
 
   @include phone {
-    background-color: #ffffff00;
+    background-color: hsla(0 0% 100% / 0);
     padding: 0;
   }
 
@@ -103,11 +103,11 @@
     padding-block: 8px;
     display: grid;
     grid-template-columns: 1fr 102px;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid var(--color-outline);
 
     @include phone {
       border-bottom: none;
-      background-color: #fff;
+      background-color: var(--color-surface-container-low);
       border-radius: 32px;
       padding: 24px;
       grid-template-columns: 1fr;
@@ -137,21 +137,22 @@
         padding-inline: 24px;
         border-radius: 14px;
         border: none;
-        background-color: #f4f4f4;
+        background-color: var(--color-secondary-container);
 
         @include phone {
           height: 40px;
           width: 100%;
-          background-color: #ffffff;
+          background-color: var(--color-on-primary);
           border-radius: 20px;
-          border: 2px solid #ff6600;
+          border: 2px solid var(--color-primary);
         }
         p {
           @include title-small();
+          color: var(--color-on-secondary-container);
 
           @include phone {
             @include label-button();
-            color: #ff6600;
+            color: var(--color-primary);
           }
         }
       }
@@ -163,9 +164,9 @@
   padding-inline: 32px;
   margin-top: 40px;
   height: 48px;
-  background-color: #ffffff;
+  background-color: var(--color-on-primary);
   border-radius: 24px;
-  border: 2px solid #ff6600;
+  border: 2px solid var(--color-primary);
 
   @include tablet {
     margin-top: 32px;
@@ -178,7 +179,7 @@
     flex-direction: row;
     gap: 8px;
     @include label-button();
-    color: #ff6600;
+    color: var(--color-primary);
   }
 }
 </style>

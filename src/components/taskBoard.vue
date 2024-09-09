@@ -53,7 +53,7 @@ import Container from './container.vue'
 @import '../scss/mixins';
 
 .container {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   @include tablet {
     display: none;
   }
@@ -63,7 +63,7 @@ import Container from './container.vue'
   margin-block: 60px;
   .label {
     @include display-large();
-    color: #333333;
+    color: var(--color-on-surface);
     margin-bottom: 48px;
   }
 }
@@ -83,7 +83,7 @@ import Container from './container.vue'
       height: 48px;
       width: min-content;
       border-radius: 24px;
-      background-color: #eaeaea;
+      background-color: var(--color-secondary-container);
       display: flex;
       align-items: center;
       padding-inline: 24px;
@@ -92,7 +92,7 @@ import Container from './container.vue'
         font-size: 18px;
         font-weight: bold;
         font-family: 'PT Sans Caption', sans-serif;
-        color: #333333;
+        color: var(--color-on-secondary-container);
       }
     }
   }
@@ -102,7 +102,7 @@ import Container from './container.vue'
     min-height: 280px;
     padding: 16px;
     border-radius: 24px;
-    background-color: #eaeaea80;
+    background-color: var(--color-surface-container);
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -110,11 +110,11 @@ import Container from './container.vue'
     &__item {
       padding: 24px 32px;
       border-radius: 24px;
-      background-color: #fff;
-      border: 2px solid #eaeaea;
+      background-color: var(--color-surface-container-low);
+      border: 2px solid var(--color-outline);
       p {
         @include label-small();
-        color: #333333;
+        color: var(--color-on-surface);
       }
     }
   }

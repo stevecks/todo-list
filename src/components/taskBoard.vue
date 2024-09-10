@@ -107,11 +107,14 @@ import Container from './container.vue'
     flex-direction: column;
     justify-content: start;
     gap: 16px;
+
     &__item {
       padding: 24px 32px;
       border-radius: 24px;
       background-color: var(--color-surface-container-low);
       border: 2px solid var(--color-outline);
+      cursor: pointer;
+
       p {
         @include label-small();
         color: var(--color-on-surface);

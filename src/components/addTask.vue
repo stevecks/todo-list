@@ -1,10 +1,17 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+defineProps({})
+const emit = defineEmits(['addTask'])
+const onClickAdd = () => {
+  emit('addTask', 'New task')
+}
+</script>
 
 <template>
   <div class="card">
     <h2 class="card__name">Добавить задачу</h2>
     <div class="adding-section">
-      <button class="adding-section__button">
+      <button @click="onClickAdd" class="adding-section__button">
         <span class="material-symbols-outlined">add</span>
         <p>Добавить задачу</p>
       </button>
@@ -48,7 +55,7 @@
 
     @include phone {
       flex-direction: column-reverse;
-      gap: 16px;
+      gap: 24px;
       align-items: stretch;
     }
 
@@ -61,6 +68,7 @@
       border-radius: 22px;
       border: none;
       background-color: var(--color-primary);
+      cursor: pointer;
 
       @include phone {
         width: 100%;
@@ -96,24 +104,38 @@
         border-radius: 24px;
         background-color: hsla(0 0% 100% / 0);
         padding: 0 44px 0 16px;
+        cursor: pointer;
+        &:focus {
+          outline-color: var(--color-on-surface);
+        }
       }
       input::placeholder {
         @include title-medium();
         color: var(--color-on-surface);
       }
+      &:hover .button-clear {
+        display: flex;
+      }
+      &:focus-within .button-clear {
+        display: flex;
+      }
 
       .button-clear {
         position: absolute;
+        display: none;
+        justify-content: center;
+        align-items: center;
         top: 4px;
         right: 4px;
         height: 40px;
         width: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         border-radius: 20px;
         border: none;
         background-color: hsla(0 0% 100% / 0);
+        cursor: pointer;
+        @include tablet {
+          display: flex;
+        }
 
         span {
           font-size: 20px;

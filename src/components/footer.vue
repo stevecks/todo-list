@@ -1,6 +1,4 @@
-<script setup>
-import Container from './container.vue'
-</script>
+<script setup></script>
 <template>
   <div class="container">
     <footer></footer>
@@ -10,9 +8,9 @@ import Container from './container.vue'
 @import '../scss/mixins';
 
 .container {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   @include tablet {
-    background-color: #eaeaea;
+    background-color: var(--color-surface-container);
   }
 }
 
@@ -20,7 +18,7 @@ footer {
   height: 144px;
   width: 100%;
   border-radius: 48px 48px 0 0;
-  background-color: #bbb8b6;
+  background-color: var(--color-surface-container-high);
   @include tablet {
     height: 120px;
   }

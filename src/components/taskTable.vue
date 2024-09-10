@@ -1,8 +1,13 @@
-<script setup></script>
+<script setup>
+defineProps({
+  taskList: Array
+})
+</script>
 
 <template>
   <div class="container">
     <div class="table">
+      <!-- <p class="section-empty">Список задач пуст. Добавьте задачи!</p> -->
       <div class="head-section">
         <div class="head-section__label">
           <p>Задачи</p>
@@ -12,33 +17,13 @@
         </div>
       </div>
       <div class="task-list">
-        <div class="task-card">
+        <div class="task-card" v-for="item in taskList" :key="item.id">
           <div class="task-card__name">
-            <p>Сварить пельмени</p>
+            <p>{{ item.task }}</p>
           </div>
           <div class="task-card__button">
             <button>
-              <p>Открыт</p>
-            </button>
-          </div>
-        </div>
-        <div class="task-card">
-          <div class="task-card__name">
-            <p>Поднять инфрастуктуру проекта</p>
-          </div>
-          <div class="task-card__button">
-            <button>
-              <p>Открыт</p>
-            </button>
-          </div>
-        </div>
-        <div class="task-card">
-          <div class="task-card__name">
-            <p>Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу</p>
-          </div>
-          <div class="task-card__button">
-            <button>
-              <p>В работе</p>
+              <p>{{ item.status }}</p>
             </button>
           </div>
         </div>
@@ -67,6 +52,16 @@
     padding: 0;
   }
 
+  .section-empty {
+    text-align: center;
+    @include label-large();
+    color: var(--color-surface-container-high);
+
+    @include tablet {
+      @include label-medium();
+    }
+  }
+
   .head-section {
     width: 100%;
     display: grid;
@@ -85,6 +80,7 @@
         width: 102px;
         display: flex;
         justify-content: center;
+
         @include phone {
           display: none;
         }
@@ -95,10 +91,12 @@
   .task-list {
     display: flex;
     flex-direction: column;
+
     @include phone {
       gap: 24px;
     }
   }
+
   .task-card {
     padding-block: 8px;
     display: grid;
@@ -132,12 +130,14 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+
       button {
         height: 28px;
         padding-inline: 24px;
         border-radius: 14px;
         border: none;
         background-color: var(--color-secondary-container);
+        cursor: pointer;
 
         @include phone {
           height: 40px;
@@ -146,6 +146,7 @@
           border-radius: 20px;
           border: 2px solid var(--color-primary);
         }
+
         p {
           @include title-small();
           color: var(--color-on-secondary-container);
@@ -167,13 +168,16 @@
   background-color: var(--color-on-primary);
   border-radius: 24px;
   border: 2px solid var(--color-primary);
+  cursor: pointer;
 
   @include tablet {
     margin-top: 32px;
   }
+
   @include phone {
     margin-top: 24px;
   }
+
   &__text {
     display: flex;
     flex-direction: row;

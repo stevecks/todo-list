@@ -1,5 +1,5 @@
 <script setup>
-import { provide, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 
 import Header from './components/header.vue'
 import Tasks from './components/tasks.vue'
@@ -10,13 +10,11 @@ import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
 import Popup from './components/popup.vue'
 
-let lastId = 0
-
-const taskList = ref([
+const taskList = [
   {
     id: 1,
     task: 'Сварить пельмени',
-    status: 'Открыт'
+    status: 'В работе'
   },
   {
     id: 2,
@@ -31,34 +29,65 @@ const taskList = ref([
   {
     id: 4,
     task: 'Поругаться с девопсом',
-    status: 'В работе'
+    status: 'Открыт'
   },
   {
     id: 5,
     task: 'Спеть - Знаешь ли ты, вдоль ночных дорог',
     status: 'Закрыт'
   }
-])
+]
 
-const addNewTask = (task) => {
-  taskList.value.push({
+const taskSortList = ref([])
+const countsOfStatuses = reactive({})
+
+let lastId = taskList.length
+
+onMounted(() => {
+  taskSortList.value = sortTasks()
+
+  countsOfStatuses.open = getTasksByStatus('Открыт').length
+  countsOfStatuses.work = getTasksByStatus('В работе').length
+  countsOfStatuses.close = getTasksByStatus('Закрыт').length
+})
+
+const addTask = (task) => {
+  taskList.push({
     id: ++lastId,
     task,
     status: 'Открыт'
   })
-  console.log(taskList.value)
+  taskSortList.value = sortTasks()
+
+  countsOfStatuses.open = getTasksByStatus('Открыт').length
+  countsOfStatuses.work = getTasksByStatus('В работе').length
+  countsOfStatuses.close = getTasksByStatus('Закрыт').length
 }
 
-// provide('addTask', addTask)
+const getTasksByStatus = (status) => {
+  return taskList.filter((item) => item.status === status)
+}
+
+const changeTaskStatus = (id, newstatus) => {
+  taskList.value[id].status = newstatus
+}
+
+const sortTasks = () => {
+  return [].concat(
+    getTasksByStatus('Открыт').reverse(),
+    getTasksByStatus('В работе').reverse(),
+    getTasksByStatus('Закрыт').reverse()
+  )
+}
 </script>
 
 <template>
   <!-- <Popup></Popup> -->
   <Header></Header>
   <Tasks>
-    <CurrentTasks class="card" />
-    <AddTask class="card" @addTask="addNewTask" :taskList="taskList" />
-    <TaskTable class="card card--big" :taskList="taskList" />
+    <CurrentTasks class="card" :countsOfStatuses="countsOfStatuses" />
+    <AddTask class="card" @addTask="addTask" />
+    <TaskTable class="card card--big" :taskSortList="taskSortList" />
   </Tasks>
   <TaskBoard></TaskBoard>
   <Footer></Footer>

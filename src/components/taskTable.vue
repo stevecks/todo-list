@@ -1,6 +1,9 @@
 <script setup>
-defineProps({
-  taskList: Array
+import { ref } from 'vue'
+
+const props = defineProps({
+  taskList: Array,
+  taskSortList: Array
 })
 </script>
 
@@ -17,7 +20,7 @@ defineProps({
         </div>
       </div>
       <div class="task-list">
-        <div class="task-card" v-for="item in taskList" :key="item.id">
+        <div class="task-card" v-for="item in taskSortList" :key="item.id">
           <div class="task-card__name">
             <p>{{ item.task }}</p>
           </div>

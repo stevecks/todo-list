@@ -1,9 +1,17 @@
 <script setup>
 import { ref } from 'vue'
-defineProps({})
+
 const emit = defineEmits(['addTask'])
+
+const taskInput = ref('')
+
 const onClickAdd = () => {
-  emit('addTask', 'New task')
+  emit('addTask', taskInput.value)
+  taskInput.value = ''
+}
+
+const onClickClear = () => {
+  taskInput.value = ''
 }
 </script>
 
@@ -16,10 +24,10 @@ const onClickAdd = () => {
         <p>Добавить задачу</p>
       </button>
       <div class="adding-section__input">
-        <button class="button-clear">
+        <button @click="onClickClear" class="button-clear">
           <span class="material-symbols-outlined">close</span>
         </button>
-        <input type="text" placeholder="Текст" />
+        <input type="text" placeholder="Текст" v-model="taskInput" />
       </div>
     </div>
   </div>

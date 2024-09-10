@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { onMounted, ref } from 'vue'
+
+const emit = defineProps({
+  countsOfStatuses: Object
+})
+
+onMounted(() => {})
+</script>
 
 <template>
   <div class="card">
@@ -6,15 +14,15 @@
     <div class="card__info">
       <div class="card__info__item">
         <span class="material-symbols-outlined blue"> info </span>
-        <p>Открыто - 21</p>
+        <p>Открыто - {{ countsOfStatuses.open }}</p>
       </div>
       <div class="card__info__item">
         <span class="material-symbols-outlined orange"> info </span>
-        <p>В работе - 21</p>
+        <p>В работе - {{ countsOfStatuses.work }}</p>
       </div>
       <div class="card__info__item">
         <span class="material-symbols-outlined green"> info </span>
-        <p>Закрыто - 11</p>
+        <p>Закрыто - {{ countsOfStatuses.close }}</p>
       </div>
     </div>
   </div>

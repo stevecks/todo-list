@@ -26,15 +26,16 @@ const props = defineProps({
   popupTask: Object
 })
 
-const emit = defineEmits(['onClosePopup', 'onDeleteTask'])
+const emit = defineEmits(['onClosePopup', 'onDeleteTask', 'onChangeTask'])
 
 onMounted(() => {
   makeSortStatuses()
+  taskInput.value = props.popupTask.name
 })
 
 const selectStatus = ref('')
 
-// const taskInput = ref('')
+const taskInput = ref('')
 
 const makeSortStatuses = () => {
   if (props.popupTask.status === 'Открыт')
@@ -54,10 +55,21 @@ const onClickStatus = (status) => {
     if (item.name !== status.name) item.select = false
   })
   status.select = !status.select
+  if (status.name === 'Отложить') selectStatus.value = 'Открыт'
+  if (status.name === 'В работу') selectStatus.value = 'В работе'
+  if (status.name === 'Закрыть') selectStatus.value = 'Закрыт'
+  if (status.name === 'Переоткрыть') selectStatus.value = 'Открыт'
 }
 
 const onClosePopup = () => {
   emit('onClosePopup')
+}
+
+const onChangeTask = () => {
+  if (taskInput.value) {
+    emit('onChangeTask', props.popupTask.id, taskInput.value, selectStatus.value)
+    emit('onClosePopup')
+  }
 }
 
 const onDeleteTask = () => {
@@ -80,7 +92,11 @@ const onClickOutside = (event) => {
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
-      <input class="popup__input" placeholder="Текст задачи, который можно изменить" />
+      <input
+        v-model="taskInput"
+        class="popup__input"
+        placeholder="Текст задачи, который можно изменить"
+      />
       <div class="popup__divider"></div>
       <div class="statuses">
         <button
@@ -93,7 +109,7 @@ const onClickOutside = (event) => {
         </button>
       </div>
       <div class="buttons">
-        <button class="buttons__save">
+        <button class="buttons__save" @click="onChangeTask">
           <p>Применить</p>
         </button>
         <button class="buttons__delete" @click="onDeleteTask">

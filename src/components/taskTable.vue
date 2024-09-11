@@ -7,7 +7,7 @@ const props = defineProps({
   taskSortList: Array
 })
 
-const emit = defineEmits(['onDeleteTask'])
+const emit = defineEmits(['onDeleteTask', 'onChangeTask'])
 
 let popupTask = reactive({})
 
@@ -41,6 +41,10 @@ const onClickMore = () => {
 const onDeleteTask = (taskId) => {
   emit('onDeleteTask', taskId)
 }
+
+const onChangeTask = (taskId, newTask, newStatus) => {
+  emit('onChangeTask', taskId, newTask, newStatus)
+}
 </script>
 
 <template>
@@ -49,6 +53,7 @@ const onDeleteTask = (taskId) => {
       v-if="isOpenPopup"
       :popupTask="popupTask"
       @onClosePopup="onClosePopup"
+      @onChangeTask="onChangeTask"
       @onDeleteTask="onDeleteTask"
     ></Popup>
     <div class="table" ref="taskListRef">

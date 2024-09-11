@@ -6,7 +6,7 @@ const emit = defineEmits(['addTask'])
 const taskInput = ref('')
 
 const onClickAdd = () => {
-  emit('addTask', taskInput.value)
+  if (taskInput.value) emit('addTask', taskInput.value)
   taskInput.value = ''
 }
 

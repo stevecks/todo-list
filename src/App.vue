@@ -10,7 +10,7 @@ import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
 import Popup from './components/popup.vue'
 
-const taskList = [
+let taskList = [
   {
     id: 1,
     task: 'Сварить пельмени',
@@ -72,6 +72,11 @@ const changeTaskStatus = (id, newstatus) => {
   taskList.value[id].status = newstatus
 }
 
+const onDeleteTask = (taskId) => {
+  taskList = taskList.filter((item) => item.id !== taskId)
+  taskSortList.value = sortTasks()
+}
+
 const sortTasks = () => {
   return [].concat(
     getTasksByStatus('Открыт').reverse(),
@@ -87,7 +92,7 @@ const sortTasks = () => {
   <Tasks>
     <CurrentTasks class="card" :countsOfStatuses="countsOfStatuses" />
     <AddTask class="card" @addTask="addTask" />
-    <TaskTable class="card card--big" :taskSortList="taskSortList" />
+    <TaskTable class="card card--big" :taskSortList="taskSortList" @onDeleteTask="onDeleteTask" />
   </Tasks>
   <TaskBoard></TaskBoard>
   <Footer></Footer>

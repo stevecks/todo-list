@@ -1,17 +1,61 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, reactive } from 'vue'
+
+import Popup from './../components/popup.vue'
 
 const props = defineProps({
-  taskList: Array,
   taskSortList: Array
 })
+
+const emit = defineEmits(['onDeleteTask'])
+
+let popupTask = reactive({})
+
+let isOpenFull = ref(false)
+let isOpenPopup = ref(false)
+// let popupStatus = ref('')
+const taskListRef = ref(null)
+
+const visibleTasks = computed(() => {
+  return isOpenFull.value ? props.taskSortList : props.taskSortList.slice(0, 5)
+})
+
+const onClickStatus = (task) => {
+  popupTask.id = task.id
+  popupTask.name = task.task
+  popupTask.status = task.status
+  isOpenPopup.value = !isOpenPopup.value
+}
+
+const onClosePopup = () => {
+  isOpenPopup.value = !isOpenPopup.value
+}
+
+const onClickMore = () => {
+  isOpenFull.value = !isOpenFull.value
+  if (!isOpenFull.value && taskListRef.value) {
+    taskListRef.value.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const onDeleteTask = (taskId) => {
+  emit('onDeleteTask', taskId)
+}
 </script>
 
 <template>
   <div class="container">
-    <div class="table">
-      <!-- <p class="section-empty">Список задач пуст. Добавьте задачи!</p> -->
-      <div class="head-section">
+    <Popup
+      v-if="isOpenPopup"
+      :popupTask="popupTask"
+      @onClosePopup="onClosePopup"
+      @onDeleteTask="onDeleteTask"
+    ></Popup>
+    <div class="table" ref="taskListRef">
+      <p v-if="taskSortList.length === 0" class="section-empty">
+        Список задач пуст. Добавьте задачи!
+      </p>
+      <div v-if="!(taskSortList.length === 0)" class="head-section">
         <div class="head-section__label">
           <p>Задачи</p>
         </div>
@@ -20,22 +64,24 @@ const props = defineProps({
         </div>
       </div>
       <div class="task-list">
-        <div class="task-card" v-for="item in taskSortList" :key="item.id">
+        <div class="task-card" v-for="item in visibleTasks" :key="item.id">
           <div class="task-card__name">
             <p>{{ item.task }}</p>
           </div>
           <div class="task-card__button">
-            <button>
+            <button @click="onClickStatus(item)">
               <p>{{ item.status }}</p>
             </button>
           </div>
         </div>
       </div>
     </div>
-    <button class="button-more">
+    <button v-if="taskSortList.length > 5" class="button-more" @click="onClickMore">
       <div class="button-more__text">
-        <p>Показать еще</p>
-        <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+        <p>{{ isOpenFull ? 'Скрыть' : 'Показать еще' }}</p>
+        <span class="material-symbols-outlined" :class="{ rotate: isOpenFull }">
+          keyboard_arrow_down
+        </span>
       </div>
     </button>
   </div>
@@ -187,6 +233,9 @@ const props = defineProps({
     gap: 8px;
     @include label-button();
     color: var(--color-primary);
+    .rotate {
+      transform: rotate(180deg);
+    }
   }
 }
 </style>

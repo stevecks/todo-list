@@ -13,7 +13,6 @@ let popupTask = reactive({})
 
 let isOpenFull = ref(false)
 let isOpenPopup = ref(false)
-// let popupStatus = ref('')
 const taskListRef = ref(null)
 
 const visibleTasks = computed(() => {
@@ -31,19 +30,19 @@ const onClosePopup = () => {
   isOpenPopup.value = !isOpenPopup.value
 }
 
-const onClickMore = () => {
-  isOpenFull.value = !isOpenFull.value
-  if (!isOpenFull.value && taskListRef.value) {
-    taskListRef.value.scrollIntoView({ behavior: 'smooth' })
-  }
-}
-
 const onDeleteTask = (taskId) => {
   emit('onDeleteTask', taskId)
 }
 
 const onChangeTask = (taskId, newTask, newStatus) => {
   emit('onChangeTask', taskId, newTask, newStatus)
+}
+
+const onClickMore = () => {
+  isOpenFull.value = !isOpenFull.value
+  if (!isOpenFull.value && taskListRef.value) {
+    taskListRef.value.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 </script>
 

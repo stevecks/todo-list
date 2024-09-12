@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 
-const emit = defineEmits(['addTask'])
+const emit = defineEmits(['onAddTask'])
 
 const taskInput = ref('')
 
 const onClickAdd = () => {
-  if (taskInput.value) emit('addTask', taskInput.value)
+  if (taskInput.value) emit('onAddTask', taskInput.value)
   taskInput.value = ''
 }
 

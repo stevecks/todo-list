@@ -6,8 +6,6 @@ const props = defineProps({
   taskSortList: Array
 })
 
-const emit = defineEmits(['getTasksByStatus'])
-
 const taskListOpen = computed(() => {
   return props.taskSortList.filter((task) => task.status === 'Открыт')
 })
@@ -18,8 +16,6 @@ const taskListClose = computed(() => {
   return props.taskSortList.filter((task) => task.status === 'Закрыт')
 })
 
-// console.log(taskListOpen)
-
 const draggingTask = ref(null)
 
 function onDragStart(event, task) {
@@ -29,6 +25,7 @@ function onDragStart(event, task) {
 function onDrop(event, newStatus) {
   if (draggingTask.value) {
     draggingTask.value.status = newStatus
+    draggingTask.value.updateTime = Date.now()
     draggingTask.value = null
   }
 }

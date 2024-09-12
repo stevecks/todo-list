@@ -1,5 +1,11 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
+
+const props = defineProps({
+  popupTask: Object
+})
+
+const emit = defineEmits(['onClosePopup', 'onDeleteTask', 'onChangeTask'])
 
 const statuses = [
   {
@@ -21,21 +27,12 @@ const statuses = [
 ]
 
 let sortStatuses = ref([])
-
-const props = defineProps({
-  popupTask: Object
-})
-
-const emit = defineEmits(['onClosePopup', 'onDeleteTask', 'onChangeTask'])
+const selectStatus = ref('')
+const taskInput = ref(props.popupTask.name)
 
 onMounted(() => {
   makeSortStatuses()
-  taskInput.value = props.popupTask.name
 })
-
-const selectStatus = ref('')
-
-const taskInput = ref('')
 
 const makeSortStatuses = () => {
   if (props.popupTask.status === 'Открыт')
@@ -59,6 +56,7 @@ const onClickStatus = (status) => {
   if (status.name === 'В работу') selectStatus.value = 'В работе'
   if (status.name === 'Закрыть') selectStatus.value = 'Закрыт'
   if (status.name === 'Переоткрыть') selectStatus.value = 'Открыт'
+  if (!status.select) selectStatus.value = ''
 }
 
 const onClosePopup = () => {

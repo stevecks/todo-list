@@ -4,8 +4,6 @@ import { onMounted, ref } from 'vue'
 const emit = defineProps({
   countsOfStatuses: Object
 })
-
-onMounted(() => {})
 </script>
 
 <template>

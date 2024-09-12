@@ -17,15 +17,23 @@ const taskListClose = computed(() => {
 })
 
 const draggingTask = ref(null)
+let isDragging = false
 
 function onDragStart(event, task) {
   draggingTask.value = task
+  event.target.classList.add('dragging')
+  isDragging = true
+}
+
+function onDragEnd(event) {
+  event.target.classList.remove('dragging')
+  isDragging = false
 }
 
 function onDrop(event, newStatus) {
   if (draggingTask.value) {
+    if (draggingTask.value.status !== newStatus) draggingTask.value.updateTime = Date.now()
     draggingTask.value.status = newStatus
-    draggingTask.value.updateTime = Date.now()
     draggingTask.value = null
   }
 }
@@ -50,6 +58,7 @@ function allowDrop(event) {
               :key="item.id"
               draggable="true"
               @dragstart="onDragStart($event, item)"
+              @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
             </div>
@@ -66,6 +75,7 @@ function allowDrop(event) {
               :key="item.id"
               draggable="true"
               @dragstart="onDragStart($event, item)"
+              @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
             </div>
@@ -80,8 +90,10 @@ function allowDrop(event) {
               class="card-task__item"
               v-for="item in taskListClose"
               :key="item.id"
+              :class="{ dragging: isDragging }"
               draggable="true"
               @dragstart="onDragStart($event, item)"
+              @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
             </div>
@@ -162,6 +174,17 @@ function allowDrop(event) {
         @include label-small();
         color: var(--color-on-surface);
       }
+    }
+
+    &__item.dragging {
+      opacity: 1;
+      border-radius: 24px;
+      background-color: var(--color-surface-container-low);
+      // transform: scale(1.05);
+    }
+
+    &__item.hidden {
+      visibility: hidden;
     }
   }
 }

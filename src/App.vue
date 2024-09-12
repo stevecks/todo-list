@@ -10,36 +10,36 @@ import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
 
 let taskList = reactive([
-  {
-    id: 1,
-    task: 'Сварить пельмени',
-    status: 'В работе',
-    updateTime: 1726131913001
-  },
-  {
-    id: 2,
-    task: 'Поднять инфрастуктуру проекта',
-    status: 'Открыт',
-    updateTime: 1726131913002
-  },
-  {
-    id: 3,
-    task: 'Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу',
-    status: 'В работе',
-    updateTime: 1726131913003
-  },
-  {
-    id: 4,
-    task: 'Поругаться с девопсом',
-    status: 'Открыт',
-    updateTime: 1726131913004
-  },
-  {
-    id: 5,
-    task: 'Спеть - Знаешь ли ты, вдоль ночных дорог',
-    status: 'Закрыт',
-    updateTime: 1726131913005
-  }
+  // {
+  //   id: 1,
+  //   task: 'Сварить пельмени',
+  //   status: 'В работе',
+  //   updateTime: 1726131913001
+  // },
+  // {
+  //   id: 2,
+  //   task: 'Поднять инфрастуктуру проекта',
+  //   status: 'Открыт',
+  //   updateTime: 1726131913002
+  // },
+  // {
+  //   id: 3,
+  //   task: 'Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу',
+  //   status: 'В работе',
+  //   updateTime: 1726131913003
+  // },
+  // {
+  //   id: 4,
+  //   task: 'Поругаться с девопсом',
+  //   status: 'Открыт',
+  //   updateTime: 1726131913004
+  // },
+  // {
+  //   id: 5,
+  //   task: 'Спеть - Знаешь ли ты, вдоль ночных дорог',
+  //   status: 'Закрыт',
+  //   updateTime: 1726131913005
+  // }
 ])
 
 const taskSortList = ref([])
@@ -47,7 +47,19 @@ const countsOfStatuses = reactive({})
 let lastId = taskList.length
 
 onMounted(() => {
-  updateSortAndStatuse()
+  const savedTasks = localStorage.getItem('task_list')
+
+  if (savedTasks) {
+    const parsedTasks = JSON.parse(savedTasks)
+    taskList.splice(0, taskList.length, ...parsedTasks)
+  }
+
+  const savedLastId = localStorage.getItem('last_id')
+  if (savedLastId) {
+    lastId = JSON.parse(savedLastId)
+  }
+  console.log(taskList)
+  console.log(lastId)
 })
 
 watch(
@@ -55,9 +67,15 @@ watch(
   () => {
     updateSortAndStatuse()
     console.log('Изменение')
+    saveLocalStorage()
   },
   { deep: true }
 )
+
+const saveLocalStorage = () => {
+  localStorage.setItem('task_list', JSON.stringify(taskList))
+  localStorage.setItem('last_id', JSON.stringify(lastId))
+}
 
 const updateSortAndStatuse = () => {
   taskSortList.value = sortTasks()
@@ -83,8 +101,8 @@ const onChangeTask = (taskId, newTask, newStatus) => {
 }
 
 const onDeleteTask = (taskId) => {
-  taskList = taskList.filter((item) => item.id !== taskId)
-  updateSortAndStatuse()
+  const taskIndex = taskList.findIndex((item) => item.id === taskId)
+  if (taskIndex !== -1) taskList.splice(taskIndex, 1)
 }
 
 const getTasksByStatus = (status) => {

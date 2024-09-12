@@ -1,5 +1,41 @@
 <script setup>
+import { computed, onMounted, ref } from 'vue'
 import Container from './container.vue'
+
+const props = defineProps({
+  taskSortList: Array
+})
+
+const emit = defineEmits(['getTasksByStatus'])
+
+const taskListOpen = computed(() => {
+  return props.taskSortList.filter((task) => task.status === 'Открыт')
+})
+const taskListWork = computed(() => {
+  return props.taskSortList.filter((task) => task.status === 'В работе')
+})
+const taskListClose = computed(() => {
+  return props.taskSortList.filter((task) => task.status === 'Закрыт')
+})
+
+// console.log(taskListOpen)
+
+const draggingTask = ref(null)
+
+function onDragStart(event, task) {
+  draggingTask.value = task
+}
+
+function onDrop(event, newStatus) {
+  if (draggingTask.value) {
+    draggingTask.value.status = newStatus
+    draggingTask.value = null
+  }
+}
+
+function allowDrop(event) {
+  event.preventDefault()
+}
 </script>
 <template>
   <Container class="container">
@@ -10,38 +46,47 @@ import Container from './container.vue'
           <div class="board__status">
             <p>Открыто</p>
           </div>
-          <div class="card-task">
-            <div class="card-task__item">
-              <p>Сварить пельмени</p>
-            </div>
-            <div class="card-task__item">
-              <p>Поднять инфрастуктуру проекта</p>
-            </div>
-          </div>
-        </div>
-        <div class="board__item">
-          <div class="board__status">
-            <p>Открыто</p>
-          </div>
-          <div class="card-task">
-            <div class="card-task__item">
-              <p>Сварить пельмени</p>
-            </div>
-            <div class="card-task__item">
-              <p>Поднять инфрастуктуру проекта</p>
+          <div class="card-task" @drop="onDrop($event, 'Открыт')" @dragover="allowDrop">
+            <div
+              class="card-task__item"
+              v-for="item in taskListOpen"
+              :key="item.id"
+              draggable="true"
+              @dragstart="onDragStart($event, item)"
+            >
+              <p>{{ item.task }}</p>
             </div>
           </div>
         </div>
         <div class="board__item">
           <div class="board__status">
-            <p>Открыто</p>
+            <p>В работе</p>
           </div>
-          <div class="card-task">
-            <div class="card-task__item">
-              <p>Сварить пельмени</p>
+          <div class="card-task" @drop="onDrop($event, 'В работе')" @dragover="allowDrop">
+            <div
+              class="card-task__item"
+              v-for="item in taskListWork"
+              :key="item.id"
+              draggable="true"
+              @dragstart="onDragStart($event, item)"
+            >
+              <p>{{ item.task }}</p>
             </div>
-            <div class="card-task__item">
-              <p>Поднять инфрастуктуру проекта</p>
+          </div>
+        </div>
+        <div class="board__item">
+          <div class="board__status">
+            <p>Закрыто</p>
+          </div>
+          <div class="card-task" @drop="onDrop($event, 'Закрыт')" @dragover="allowDrop">
+            <div
+              class="card-task__item"
+              v-for="item in taskListClose"
+              :key="item.id"
+              draggable="true"
+              @dragstart="onDragStart($event, item)"
+            >
+              <p>{{ item.task }}</p>
             </div>
           </div>
         </div>
@@ -93,6 +138,7 @@ import Container from './container.vue'
         font-weight: bold;
         font-family: 'PT Sans Caption', sans-serif;
         color: var(--color-on-secondary-container);
+        white-space: nowrap;
       }
     }
   }

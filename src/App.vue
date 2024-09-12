@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, watch, watchEffect } from 'vue'
 
 import Header from './components/header.vue'
 import Tasks from './components/tasks.vue'
@@ -8,7 +8,7 @@ import AddTask from './components/addTask.vue'
 import TaskTable from './components/taskTable.vue'
 import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
-let taskList = [
+let taskList = reactive([
   {
     id: 1,
     task: 'Сварить пельмени',
@@ -39,12 +39,25 @@ let taskList = [
     status: 'Закрыт',
     updateTime: null
   }
-]
+])
 
 const taskSortList = ref([])
 const countsOfStatuses = reactive({})
-
 let lastId = taskList.length
+
+watch(
+  () => taskList,
+  () => {
+    taskSortList.value = sortTasks()
+
+    countsOfStatuses.open = getTasksByStatus('Открыт').length
+    countsOfStatuses.work = getTasksByStatus('В работе').length
+    countsOfStatuses.close = getTasksByStatus('Закрыт').length
+
+    console.log('Изменение')
+  },
+  { deep: true }
+)
 
 onMounted(() => {
   taskSortList.value = sortTasks()
@@ -54,17 +67,19 @@ onMounted(() => {
   countsOfStatuses.close = getTasksByStatus('Закрыт').length
 })
 
+const updateSortAndStatuse = () => {}
+
 const addTask = (task) => {
   taskList.push({
     id: ++lastId,
     task,
     status: 'Открыт'
   })
-  taskSortList.value = sortTasks()
+  // taskSortList.value = sortTasks()
 
-  countsOfStatuses.open = getTasksByStatus('Открыт').length
-  countsOfStatuses.work = getTasksByStatus('В работе').length
-  countsOfStatuses.close = getTasksByStatus('Закрыт').length
+  // countsOfStatuses.open = getTasksByStatus('Открыт').length
+  // countsOfStatuses.work = getTasksByStatus('В работе').length
+  // countsOfStatuses.close = getTasksByStatus('Закрыт').length
 }
 
 const getTasksByStatus = (status) => {
@@ -74,11 +89,11 @@ const getTasksByStatus = (status) => {
 const onChangeTask = (taskId, newTask, newStatus) => {
   if (newTask) taskList.find((item) => item.id === taskId).task = newTask
   if (newStatus) taskList.find((item) => item.id === taskId).status = newStatus
-  taskSortList.value = sortTasks()
+  // taskSortList.value = sortTasks()
 
-  countsOfStatuses.open = getTasksByStatus('Открыт').length
-  countsOfStatuses.work = getTasksByStatus('В работе').length
-  countsOfStatuses.close = getTasksByStatus('Закрыт').length
+  // countsOfStatuses.open = getTasksByStatus('Открыт').length
+  // countsOfStatuses.work = getTasksByStatus('В работе').length
+  // countsOfStatuses.close = getTasksByStatus('Закрыт').length
 }
 
 const onDeleteTask = (taskId) => {
@@ -88,6 +103,8 @@ const onDeleteTask = (taskId) => {
   countsOfStatuses.open = getTasksByStatus('Открыт').length
   countsOfStatuses.work = getTasksByStatus('В работе').length
   countsOfStatuses.close = getTasksByStatus('Закрыт').length
+
+  // console.log(taskList)
 }
 
 const sortTasks = () => {
@@ -112,7 +129,7 @@ const sortTasks = () => {
       @onChangeTask="onChangeTask"
     />
   </Tasks>
-  <TaskBoard></TaskBoard>
+  <TaskBoard :taskSortList="taskSortList" @getTasksByStatus="getTasksByStatus"></TaskBoard>
   <Footer></Footer>
 </template>
 

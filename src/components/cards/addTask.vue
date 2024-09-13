@@ -34,7 +34,7 @@ const onClickClear = () => {
 </template>
 
 <style scoped lang="scss">
-@import '../scss/mixins';
+@import '../../scss/mixins';
 
 .card {
   padding: 40px 24px;

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, reactive } from 'vue'
 
-import Popup from './../components/popup.vue'
+import Popup from './../popup.vue'
 
 const props = defineProps({
   taskSortList: Array
@@ -89,7 +89,7 @@ const onClickMore = () => {
 </template>
 
 <style scoped lang="scss">
-@import '../scss/mixins';
+@import '../../scss/mixins';
 
 .table {
   padding: 40px;

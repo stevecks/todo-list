@@ -2,10 +2,10 @@
 import { onMounted, ref, reactive, watch, watchEffect } from 'vue'
 
 import Header from './components/header.vue'
-import Tasks from './components/tasks.vue'
-import CurrentTasks from './components/currentTasks.vue'
-import AddTask from './components/addTask.vue'
-import TaskTable from './components/taskTable.vue'
+import TaskCards from './components/taskCards.vue'
+import CurrentTasks from './components/cards/currentTasks.vue'
+import AddTask from './components/cards/addTask.vue'
+import TaskTable from './components/cards/taskTable.vue'
 import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
 
@@ -87,7 +87,7 @@ const sortTasks = () => {
 
 <template>
   <Header></Header>
-  <Tasks>
+  <TaskCards>
     <CurrentTasks class="card" :countsOfStatuses="countsOfStatuses" />
     <AddTask class="card" @onAddTask="onAddTask" />
     <TaskTable
@@ -96,7 +96,7 @@ const sortTasks = () => {
       @onDeleteTask="onDeleteTask"
       @onChangeTask="onChangeTask"
     />
-  </Tasks>
+  </TaskCards>
   <TaskBoard :taskSortList="taskSortList"></TaskBoard>
   <Footer></Footer>
 </template>

@@ -81,12 +81,10 @@ const onClickMore = () => {
       </div>
     </div>
     <button v-if="taskSortList.length > 5" class="button-more" @click="onClickMore">
-      <div class="button-more__text">
-        <p>{{ isOpenFull ? 'Скрыть' : 'Показать еще' }}</p>
-        <span class="material-symbols-outlined" :class="{ rotate: isOpenFull }">
-          keyboard_arrow_down
-        </span>
-      </div>
+      <p>{{ isOpenFull ? 'Скрыть' : 'Показать еще' }}</p>
+      <span class="material-symbols-outlined" :class="{ rotate: isOpenFull }">
+        keyboard_arrow_down
+      </span>
     </button>
   </div>
 </template>
@@ -190,24 +188,24 @@ const onClickMore = () => {
         border-radius: 14px;
         border: none;
         background-color: var(--color-secondary-container);
+        color: var(--color-on-secondary-container);
+        @include title-small();
         cursor: pointer;
+
+        &:hover {
+          transition: all 0.3s ease;
+          background-color: var(--color-primary);
+          color: var(--color-on-primary);
+        }
 
         @include phone {
           height: 40px;
           width: 100%;
-          background-color: var(--color-on-primary);
           border-radius: 20px;
           border: 2px solid var(--color-primary);
-        }
-
-        p {
-          @include title-small();
-          color: var(--color-on-secondary-container);
-
-          @include phone {
-            @include label-button();
-            color: var(--color-primary);
-          }
+          background-color: var(--color-on-primary);
+          color: var(--color-primary);
+          @include label-button();
         }
       }
     }
@@ -218,10 +216,23 @@ const onClickMore = () => {
   padding-inline: 32px;
   margin-top: 40px;
   height: 48px;
-  background-color: var(--color-on-primary);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   border-radius: 24px;
+  background-color: var(--color-on-primary);
+  color: var(--color-primary);
   border: 2px solid var(--color-primary);
+  @include label-button();
   cursor: pointer;
+
+  &:hover {
+    transition: all 0.3s ease;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
 
   @include tablet {
     margin-top: 32px;
@@ -231,15 +242,8 @@ const onClickMore = () => {
     margin-top: 24px;
   }
 
-  &__text {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    @include label-button();
-    color: var(--color-primary);
-    .rotate {
-      transform: rotate(180deg);
-    }
+  .rotate {
+    transform: rotate(180deg);
   }
 }
 </style>

@@ -9,42 +9,11 @@ import TaskTable from './components/taskTable.vue'
 import TaskBoard from './components/taskBoard.vue'
 import Footer from './components/footer.vue'
 
-let taskList = reactive([
-  // {
-  //   id: 1,
-  //   task: 'Сварить пельмени',
-  //   status: 'В работе',
-  //   updateTime: 1726131913001
-  // },
-  // {
-  //   id: 2,
-  //   task: 'Поднять инфрастуктуру проекта',
-  //   status: 'Открыт',
-  //   updateTime: 1726131913002
-  // },
-  // {
-  //   id: 3,
-  //   task: 'Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу',
-  //   status: 'В работе',
-  //   updateTime: 1726131913003
-  // },
-  // {
-  //   id: 4,
-  //   task: 'Поругаться с девопсом',
-  //   status: 'Открыт',
-  //   updateTime: 1726131913004
-  // },
-  // {
-  //   id: 5,
-  //   task: 'Спеть - Знаешь ли ты, вдоль ночных дорог',
-  //   status: 'Закрыт',
-  //   updateTime: 1726131913005
-  // }
-])
+const taskList = reactive([])
 
 const taskSortList = ref([])
 const countsOfStatuses = reactive({})
-let lastId = taskList.length
+let lastId = 0
 
 onMounted(() => {
   const savedTasks = localStorage.getItem('task_list')
@@ -58,15 +27,13 @@ onMounted(() => {
   if (savedLastId) {
     lastId = JSON.parse(savedLastId)
   }
-  console.log(taskList)
-  console.log(lastId)
+  updateSortAndStatuse()
 })
 
 watch(
   () => taskList,
   () => {
     updateSortAndStatuse()
-    console.log('Изменение')
     saveLocalStorage()
   },
   { deep: true }

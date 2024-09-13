@@ -76,7 +76,14 @@ const onClickClear = () => {
       border-radius: 22px;
       border: none;
       background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      @include label-button();
       cursor: pointer;
+
+      &:hover {
+        background-color: #f25800;
+        transition: all 0.3s ease;
+      }
 
       @include phone {
         width: 100%;
@@ -85,7 +92,6 @@ const onClickClear = () => {
       span {
         height: 24px;
         width: 24px;
-        color: var(--color-on-primary);
         @include phone {
           display: none;
         }
@@ -93,8 +99,6 @@ const onClickClear = () => {
 
       p {
         display: none;
-        @include label-button();
-        color: var(--color-on-primary);
         @include phone {
           display: inline;
         }
@@ -113,8 +117,15 @@ const onClickClear = () => {
         background-color: hsla(0 0% 100% / 0);
         padding: 0 44px 0 16px;
         cursor: pointer;
-        &:focus {
-          outline-color: var(--color-on-surface);
+
+        &:hover {
+          border: 1px solid var(--color-primary);
+          transition: all 0.3s ease;
+        }
+        &:focus-visible {
+          border: 1px solid var(--color-primary);
+          outline: none;
+          transition: all 0.3s ease;
         }
       }
       input::placeholder {

@@ -17,17 +17,18 @@ const taskListClose = computed(() => {
 })
 
 const draggingTask = ref(null)
-let isDragging = false
+
+const isOverOpen = ref(false)
+const isOverWork = ref(false)
+const isOverClose = ref(false)
 
 function onDragStart(event, task) {
   draggingTask.value = task
   event.target.classList.add('dragging')
-  isDragging = true
 }
 
 function onDragEnd(event) {
   event.target.classList.remove('dragging')
-  isDragging = false
 }
 
 function onDrop(event, newStatus) {
@@ -35,23 +36,57 @@ function onDrop(event, newStatus) {
     if (draggingTask.value.status !== newStatus) draggingTask.value.updateTime = Date.now()
     draggingTask.value.status = newStatus
     draggingTask.value = null
+    event.target.classList.remove('dragging')
+    isOverOpen.value = false
+    isOverWork.value = false
+    isOverClose.value = false
   }
 }
 
 function allowDrop(event) {
   event.preventDefault()
 }
+
+function onDragEnter(event, column) {
+  if (draggingTask.value.status === 'Открыт') {
+    if (column === 'В работе') isOverWork.value = true
+    if (column === 'Закрыт') isOverClose.value = true
+  }
+  if (draggingTask.value.status === 'В работе') {
+    if (column === 'Открыт') isOverOpen.value = true
+    if (column === 'Закрыт') isOverClose.value = true
+  }
+  if (draggingTask.value.status === 'Закрыт') {
+    if (column === 'Открыт') isOverOpen.value = true
+    if (column === 'В работе') isOverWork.value = true
+  }
+}
+
+function onDragLeave(event) {
+  isOverOpen.value = false
+  isOverWork.value = false
+  isOverClose.value = false
+}
+isOverOpen.value = false
+isOverWork.value = false
+isOverClose.value = false
 </script>
 <template>
   <Container class="container">
-    <div class="board-section">
+    <div class="board-section" v-if="props.taskSortList.length">
       <p class="label">Доска задач</p>
       <div class="board">
         <div class="board__item">
           <div class="board__status">
             <p>Открыто</p>
           </div>
-          <div class="card-task" @drop="onDrop($event, 'Открыт')" @dragover="allowDrop">
+          <div
+            class="card-task"
+            @drop="onDrop($event, 'Открыт')"
+            @dragover="allowDrop"
+            @dragenter="onDragEnter($event, 'Открыт')"
+          >
+            <div v-if="isOverOpen" class="section-add" @dragleave="onDragLeave($event)"></div>
             <div
               class="card-task__item"
               v-for="item in taskListOpen"
@@ -68,7 +103,13 @@ function allowDrop(event) {
           <div class="board__status">
             <p>В работе</p>
           </div>
-          <div class="card-task" @drop="onDrop($event, 'В работе')" @dragover="allowDrop">
+          <div
+            class="card-task"
+            @drop="onDrop($event, 'В работе')"
+            @dragover="allowDrop"
+            @dragenter="onDragEnter($event, 'В работе')"
+          >
+            <div v-if="isOverWork" class="section-add" @dragleave="onDragLeave($event)"></div>
             <div
               class="card-task__item"
               v-for="item in taskListWork"
@@ -85,12 +126,17 @@ function allowDrop(event) {
           <div class="board__status">
             <p>Закрыто</p>
           </div>
-          <div class="card-task" @drop="onDrop($event, 'Закрыт')" @dragover="allowDrop">
+          <div
+            class="card-task"
+            @drop="onDrop($event, 'Закрыт')"
+            @dragover="allowDrop"
+            @dragenter="onDragEnter($event, 'Закрыт')"
+          >
+            <div v-if="isOverClose" class="section-add" @dragleave="onDragLeave($event)"></div>
             <div
               class="card-task__item"
               v-for="item in taskListClose"
               :key="item.id"
-              :class="{ dragging: isDragging }"
               draggable="true"
               @dragstart="onDragStart($event, item)"
               @dragend="onDragEnd($event)"
@@ -107,6 +153,7 @@ function allowDrop(event) {
 @import '../scss/mixins';
 
 .container {
+  min-height: calc(100dvh - 716px);
   background-color: var(--color-surface);
   @include tablet {
     display: none;
@@ -152,6 +199,7 @@ function allowDrop(event) {
     }
   }
   .card-task {
+    position: relative;
     width: 100%;
     flex-grow: 1;
     min-height: 280px;
@@ -162,6 +210,30 @@ function allowDrop(event) {
     flex-direction: column;
     justify-content: start;
     gap: 16px;
+
+    .section-add {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffffbc;
+      margin: 8px;
+      color: var(--color-on-surface);
+      font-size: 18px;
+      font-weight: bold;
+      border: 2px dashed var(--color-primary);
+      border-radius: 24px;
+      z-index: 1;
+    }
+
+    &.drag-over {
+      border: 2px dashed var(--color-primary);
+      background-color: #802121;
+    }
 
     &__item {
       padding: 24px 32px;
@@ -179,12 +251,9 @@ function allowDrop(event) {
     &__item.dragging {
       opacity: 1;
       border-radius: 24px;
+      border: 2px solid var(--color-primary);
       background-color: var(--color-surface-container-low);
       // transform: scale(1.05);
-    }
-
-    &__item.hidden {
-      visibility: hidden;
     }
   }
 }

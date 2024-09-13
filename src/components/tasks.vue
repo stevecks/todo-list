@@ -12,6 +12,13 @@ import Container from './container.vue'
 @import '../scss/mixins';
 .container {
   background-color: var(--color-surface-container);
+
+  @include tablet {
+    min-height: calc(100dvh - 240px);
+  }
+  @include phone {
+    min-height: calc(100dvh - 172px);
+  }
 }
 
 .tasks-section {

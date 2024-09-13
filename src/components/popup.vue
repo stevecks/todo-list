@@ -180,6 +180,15 @@ const onClickOutside = (event) => {
     &:placeholder {
       @include title-small();
     }
+    &:hover {
+      border: 1px solid var(--color-primary);
+      transition: all 0.3s ease;
+    }
+    &:focus-visible {
+      border: 1px solid var(--color-primary);
+      outline: none;
+      transition: all 0.3s ease;
+    }
   }
 
   &__divider {
@@ -198,11 +207,14 @@ const onClickOutside = (event) => {
       border-radius: 15px;
       border: none;
       background-color: var(--color-secondary-container);
+      color: var(--color-on-secondary-container);
+      @include title-small();
+      white-space: nowrap;
       cursor: pointer;
-      p {
-        @include title-small();
-        color: var(--color-on-secondary-container);
-        white-space: nowrap;
+
+      &:hover {
+        transition: all 0.3s ease;
+        background-color: var(--color-surface-container-high);
       }
     }
     .active {
@@ -227,11 +239,14 @@ const onClickOutside = (event) => {
       border-radius: 20px;
       border: none;
       background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      white-space: nowrap;
+      @include label-button();
       cursor: pointer;
-      p {
-        @include label-button();
-        color: var(--color-on-primary);
-        white-space: nowrap;
+
+      &:hover {
+        background-color: #f25800;
+        transition: all 0.3s ease;
       }
     }
     &__delete {
@@ -243,11 +258,15 @@ const onClickOutside = (event) => {
       border-radius: 20px;
       background-color: var(--color-on-primary);
       border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      white-space: nowrap;
+      @include label-button();
       cursor: pointer;
-      p {
-        @include label-button();
-        color: var(--color-primary);
-        white-space: nowrap;
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        transition: all 0.3s ease;
       }
     }
   }

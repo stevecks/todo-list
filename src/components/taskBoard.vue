@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import Container from './container.vue'
 
 const props = defineProps({
@@ -37,9 +37,7 @@ function onDrop(event, newStatus) {
     draggingTask.value.status = newStatus
     draggingTask.value = null
     event.target.classList.remove('dragging')
-    isOverOpen.value = false
-    isOverWork.value = false
-    isOverClose.value = false
+    onDragLeave()
   }
 }
 
@@ -67,27 +65,24 @@ function onDragLeave(event) {
   isOverWork.value = false
   isOverClose.value = false
 }
-isOverOpen.value = false
-isOverWork.value = false
-isOverClose.value = false
 </script>
 <template>
   <Container class="container">
-    <div class="board-section" v-if="props.taskSortList.length">
+    <section class="board-section" v-if="props.taskSortList.length">
       <p class="label">Доска задач</p>
       <div class="board">
-        <div class="board__item">
+        <article class="board__item">
           <div class="board__status">
             <p>Открыто</p>
           </div>
-          <div
+          <ul
             class="card-task"
             @drop="onDrop($event, 'Открыт')"
             @dragover="allowDrop"
             @dragenter="onDragEnter($event, 'Открыт')"
           >
             <div v-if="isOverOpen" class="section-add" @dragleave="onDragLeave($event)"></div>
-            <div
+            <li
               class="card-task__item"
               v-for="item in taskListOpen"
               :key="item.id"
@@ -96,21 +91,21 @@ isOverClose.value = false
               @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="board__item">
+            </li>
+          </ul>
+        </article>
+        <article class="board__item">
           <div class="board__status">
             <p>В работе</p>
           </div>
-          <div
+          <ul
             class="card-task"
             @drop="onDrop($event, 'В работе')"
             @dragover="allowDrop"
             @dragenter="onDragEnter($event, 'В работе')"
           >
             <div v-if="isOverWork" class="section-add" @dragleave="onDragLeave($event)"></div>
-            <div
+            <li
               class="card-task__item"
               v-for="item in taskListWork"
               :key="item.id"
@@ -119,21 +114,21 @@ isOverClose.value = false
               @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="board__item">
+            </li>
+          </ul>
+        </article>
+        <article class="board__item">
           <div class="board__status">
             <p>Закрыто</p>
           </div>
-          <div
+          <ul
             class="card-task"
             @drop="onDrop($event, 'Закрыт')"
             @dragover="allowDrop"
             @dragenter="onDragEnter($event, 'Закрыт')"
           >
             <div v-if="isOverClose" class="section-add" @dragleave="onDragLeave($event)"></div>
-            <div
+            <li
               class="card-task__item"
               v-for="item in taskListClose"
               :key="item.id"
@@ -142,11 +137,11 @@ isOverClose.value = false
               @dragend="onDragEnd($event)"
             >
               <p>{{ item.task }}</p>
-            </div>
-          </div>
-        </div>
+            </li>
+          </ul>
+        </article>
       </div>
-    </div>
+    </section>
   </Container>
 </template>
 <style scoped lang="scss">
@@ -188,14 +183,9 @@ isOverClose.value = false
       display: flex;
       align-items: center;
       padding-inline: 24px;
-      p {
-        line-height: 28px;
-        font-size: 18px;
-        font-weight: bold;
-        font-family: 'PT Sans Caption', sans-serif;
-        color: var(--color-on-secondary-container);
-        white-space: nowrap;
-      }
+      color: var(--color-on-secondary-container);
+      @include display-small();
+      white-space: nowrap;
     }
   }
   .card-task {
@@ -210,6 +200,7 @@ isOverClose.value = false
     flex-direction: column;
     justify-content: start;
     gap: 16px;
+    list-style-type: none;
 
     .section-add {
       position: absolute;
@@ -222,17 +213,9 @@ isOverClose.value = false
       align-items: center;
       background-color: #ffffffbc;
       margin: 8px;
-      color: var(--color-on-surface);
-      font-size: 18px;
-      font-weight: bold;
       border: 2px dashed var(--color-primary);
       border-radius: 24px;
       z-index: 1;
-    }
-
-    &.drag-over {
-      border: 2px dashed var(--color-primary);
-      background-color: #802121;
     }
 
     &__item {
@@ -241,11 +224,8 @@ isOverClose.value = false
       background-color: var(--color-surface-container-low);
       border: 2px solid var(--color-outline);
       cursor: pointer;
-
-      p {
-        @include label-small();
-        color: var(--color-on-surface);
-      }
+      @include label-small();
+      color: var(--color-on-surface);
     }
 
     &__item.dragging {
@@ -253,7 +233,6 @@ isOverClose.value = false
       border-radius: 24px;
       border: 2px solid var(--color-primary);
       background-color: var(--color-surface-container-low);
-      // transform: scale(1.05);
     }
   }
 }

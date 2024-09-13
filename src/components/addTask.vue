@@ -16,21 +16,21 @@ const onClickClear = () => {
 </script>
 
 <template>
-  <div class="card">
+  <section class="card">
     <h2 class="card__name">Добавить задачу</h2>
-    <div class="adding-section">
+    <form class="adding-section" @submit.prevent="onClickAdd">
       <button @click="onClickAdd" class="adding-section__button">
         <span class="material-symbols-outlined">add</span>
         <p>Добавить задачу</p>
       </button>
       <div class="adding-section__input">
-        <button @click="onClickClear" class="button-clear">
+        <button @click="onClickClear" class="button-clear" type="button">
           <span class="material-symbols-outlined">close</span>
         </button>
         <input type="text" placeholder="Текст" v-model="taskInput" />
       </div>
-    </div>
-  </div>
+    </form>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -81,8 +81,11 @@ const onClickClear = () => {
       cursor: pointer;
 
       &:hover {
-        background-color: #f25800;
+        background-color: var(--color-filled-button-hover);
         transition: all 0.3s ease;
+        @include tablet {
+          background-color: var(--color-primary);
+        }
       }
 
       @include phone {
@@ -115,6 +118,8 @@ const onClickClear = () => {
         border: 1px solid var(--color-outline);
         border-radius: 24px;
         background-color: hsla(0 0% 100% / 0);
+        color: var(--color-on-surface);
+        @include title-medium();
         padding: 0 44px 0 16px;
         cursor: pointer;
 

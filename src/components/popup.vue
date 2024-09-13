@@ -26,7 +26,7 @@ const statuses = [
   }
 ]
 
-let sortStatuses = ref([])
+const sortStatuses = ref([])
 const selectStatus = ref('')
 const taskInput = ref(props.popupTask.name)
 
@@ -77,13 +77,13 @@ const onDeleteTask = () => {
 
 const onClickOutside = (event) => {
   if (event.target === event.currentTarget) {
-    onClosePopup()
+    emit('onClosePopup')
   }
 }
 </script>
 <template>
-  <div class="container" @click="onClickOutside">
-    <div class="popup">
+  <section class="container" @click="onClickOutside">
+    <article class="popup">
       <div class="popup__label">
         <h2>Изменение задачи</h2>
         <button class="popup__button-close" @click="onClosePopup">
@@ -114,8 +114,8 @@ const onClickOutside = (event) => {
           <p>Удалить задачу</p>
         </button>
       </div>
-    </div>
-  </div>
+    </article>
+  </section>
 </template>
 <style scoped lang="scss">
 @import '../scss/mixins';
@@ -162,11 +162,19 @@ const onClickOutside = (event) => {
     border-radius: 14px;
     border: none;
     background-color: hsla(0 0% 100% / 0);
+    color: var(--color-surface-container-high);
     cursor: pointer;
+
+    &:hover {
+      color: var(--color-primary);
+      transition: all 0.3s ease;
+      @include tablet {
+        color: var(--color-surface-container-high);
+      }
+    }
     span {
       height: 24px;
       width: 24px;
-      color: var(--color-surface-container-high);
     }
   }
   &__input {
@@ -177,6 +185,8 @@ const onClickOutside = (event) => {
     border: 1px solid var(--color-outline);
     padding: 16px;
     cursor: pointer;
+    color: var(--color-on-surface);
+    @include title-medium();
     &:placeholder {
       @include title-small();
     }
@@ -214,11 +224,14 @@ const onClickOutside = (event) => {
 
       &:hover {
         transition: all 0.3s ease;
-        background-color: var(--color-surface-container-high);
+        background-color: var(--color-tonal-button-hover);
+        @include tablet {
+          background-color: var(--color-secondary-container);
+        }
       }
     }
     .active {
-      background-color: var(--color-surface-container-high);
+      background-color: var(--color-tonal-button-active);
     }
   }
   .buttons {
@@ -245,8 +258,11 @@ const onClickOutside = (event) => {
       cursor: pointer;
 
       &:hover {
-        background-color: #f25800;
+        background-color: var(--color-filled-button-hover);
         transition: all 0.3s ease;
+        @include tablet {
+          background-color: var(--color-primary);
+        }
       }
     }
     &__delete {
@@ -267,6 +283,10 @@ const onClickOutside = (event) => {
         background-color: var(--color-primary);
         color: var(--color-on-primary);
         transition: all 0.3s ease;
+        @include tablet {
+          background-color: var(--color-on-primary);
+          color: var(--color-primary);
+        }
       }
     }
   }

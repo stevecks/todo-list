@@ -1,29 +1,27 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-
 const emit = defineProps({
   countsOfStatuses: Object
 })
 </script>
 
 <template>
-  <div class="card">
+  <section class="card">
     <h2 class="card__name">Текущие задачи</h2>
-    <div class="card__info">
-      <div class="card__info__item">
+    <ul class="card__info">
+      <li class="card__info__item">
         <span class="material-symbols-outlined blue"> info </span>
         <p>Открыто - {{ countsOfStatuses.open }}</p>
-      </div>
-      <div class="card__info__item">
+      </li>
+      <li class="card__info__item">
         <span class="material-symbols-outlined orange"> info </span>
         <p>В работе - {{ countsOfStatuses.work }}</p>
-      </div>
-      <div class="card__info__item">
+      </li>
+      <li class="card__info__item">
         <span class="material-symbols-outlined green"> info </span>
         <p>Закрыто - {{ countsOfStatuses.close }}</p>
-      </div>
-    </div>
-  </div>
+      </li>
+    </ul>
+  </section>
 </template>
 <style scoped lang="scss">
 @import '../scss/mixins';

@@ -9,10 +9,9 @@ const props = defineProps({
 
 const emit = defineEmits(['onDeleteTask', 'onChangeTask'])
 
-let popupTask = reactive({})
-
-let isOpenFull = ref(false)
-let isOpenPopup = ref(false)
+const popupTask = reactive({})
+const isOpenFull = ref(false)
+const isOpenPopup = ref(false)
 const taskListRef = ref(null)
 
 const visibleTasks = computed(() => {
@@ -67,18 +66,18 @@ const onClickMore = () => {
           <p>Статус</p>
         </div>
       </div>
-      <div class="task-list">
-        <div class="task-card" v-for="item in visibleTasks" :key="item.id">
+      <ul class="task-list">
+        <li class="task-card" v-for="item in visibleTasks" :key="item.id">
           <div class="task-card__name">
             <p>{{ item.task }}</p>
           </div>
-          <div class="task-card__button">
+          <div class="task-card__button-section">
             <button @click="onClickStatus(item)">
               <p>{{ item.status }}</p>
             </button>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
     <button v-if="taskSortList.length > 5" class="button-more" @click="onClickMore">
       <p>{{ isOpenFull ? 'Скрыть' : 'Показать еще' }}</p>
@@ -175,7 +174,7 @@ const onClickMore = () => {
       }
     }
 
-    &__button {
+    &__button-section {
       width: 100%;
       display: flex;
       flex-direction: row;
@@ -196,6 +195,10 @@ const onClickMore = () => {
           transition: all 0.3s ease;
           background-color: var(--color-primary);
           color: var(--color-on-primary);
+          @include tablet {
+            background-color: var(--color-secondary-container);
+            color: var(--color-on-secondary-container);
+          }
         }
 
         @include phone {
@@ -206,6 +209,11 @@ const onClickMore = () => {
           background-color: var(--color-on-primary);
           color: var(--color-primary);
           @include label-button();
+
+          &:hover {
+            background-color: var(--color-on-primary);
+            color: var(--color-primary);
+          }
         }
       }
     }
@@ -232,6 +240,10 @@ const onClickMore = () => {
     transition: all 0.3s ease;
     background: var(--color-primary);
     color: var(--color-on-primary);
+    @include tablet {
+      background-color: var(--color-on-primary);
+      color: var(--color-primary);
+    }
   }
 
   @include tablet {
